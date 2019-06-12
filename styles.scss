@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+}
+
+$columnsOnLargeScreen: 4;
+$cardWidth: 220px;
+$gapX: 10px;
+$gapY: 20px;
+$paddingX: 25px;
+$paddingY: 20px;
+
+@function minWidth($columns) {
+    @return ($columns * $cardWidth)+($columns - 1) * $gapX+(2 * $paddingX);
+}
+
+.people {
+    display: grid;
+    grid-template-columns: repeat(2, $cardWidth);
+    grid-gap: $gapY $gapX;
+    justify-content: center;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    padding: $paddingY $paddingX;
+
+    @media (min-width: minWidth($columnsOnLargeScreen)) {
+        grid-template-columns: repeat(4, $cardWidth);
+    }
+}
+
+.person-container {
+    position: relative;
+}
+
+.person {
+    font-family: Arial;
+    text-align: center;
+    padding: 10px;
+
+    transition: transform 1s;
+
+    .photo {
+        margin-bottom: 8px;
+        position: relative;
+
+        img {
+            width: $cardWidth - 20px;
+            border-radius: 50%;
+
+            transition: border-radius 1s;
+        }
+
+        .rank {
+            $rankSize: 32px;
+
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            height: $rankSize;
+            width: $rankSize;
+            border-radius: 50%;
+            background-color: #fff;
+
+            font-size: 16px;
+            line-height: $rankSize;
+            text-align: center;
+            color: #8B0000;
+        }
+    }
+
+    .name {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 23px;
+        color: #2F4F4F;
+    }
+
+    .extra {
+        display: none;
+        font-size: 18px;
+        line-height: 21px;
+
+        .sport::after {
+            content: ',';
+        }
+
+        .pay::before {
+            content: '$';
+        }
+
+        .pay::after {
+            content: 'M';
+        }
+    }
+
+    &:hover {
+        position: absolute;
+        background: #EEEEEE;
+        border-radius: 10px;
+        transform: scale(1.2);
+        z-index: 1;
+
+        .photo img {
+            border-radius: 25%;
+        }
+
+        .extra {
+            display: block;
+        }
+    }
+}
